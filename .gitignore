@@ -1,0 +1,27 @@
+# project config file (contain sensitive: server information)
+.idea/*
+
+# fuse results (contain images that can be reproduced by given model parameters)
+runs/*
+
+# macOS finder file (contain sensitive: local username)
+**/.DS_Store
+
+# python cache
+**/__pycache__
+
+# experimental data
+data/*
+!data/README.md
+
+# weights (update by release)
+weights/*
+
+# test files
+**/test/*
+
+# wandb
+wandb/*
+
+# data
+data/M3FD/
