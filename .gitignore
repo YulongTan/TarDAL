@@ -24,4 +24,4 @@ weights/*
 wandb/*
 
 # data
-data/M3FD/
+data/*
