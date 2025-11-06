@@ -40,6 +40,8 @@ iqa      :
 dataset  :
   name  : M3FD # dataset folder to be trained with (fuse: TNO, RoadScene; fuse & detect: M3FD, MultiSpectral, etc.)
   root  : data/m3fd # dataset root path
+  # my data root
+#  root  : data/M3FD_Detection # dataset root path
   # only available for fuse & detect
   detect:
     hsv        : [ 0.015,0.7,0.4 ] # image HSV augmentation (fraction) [developing]

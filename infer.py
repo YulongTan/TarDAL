@@ -11,8 +11,8 @@ from config import from_dict
 if __name__ == '__main__':
     # args parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('--cfg', default='config/default.yaml', help='config file path')
-    parser.add_argument('--save_dir', default='runs/tmp', help='fusion result save folder')
+    parser.add_argument('--cfg', default='./config/official/infer/tardal-tt.yaml', help='config file path')
+    parser.add_argument('--save_dir', default='./runs/tardal-tt', help='fusion result save folder')
     args = parser.parse_args()
 
     # init config
