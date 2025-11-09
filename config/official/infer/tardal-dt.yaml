@@ -62,8 +62,11 @@ train    :
 
 # inference settings:
 inference:
-  batch_size : 8 # batch size used to train
-  num_workers: 8 # number of workers used in data loading
+#  batch_size : 8 # batch size used to train
+  batch_size : 1 # batch size used to train
+#  num_workers: 8 # number of workers used in data loading
+  # 改为单线程
+  num_workers: 0 # number of workers used in data loading
   use_eval   : ~ # use eval mode in inference mode, default true, false for v0 weights.
   grayscale  : false # ignore dataset settings, save as grayscale image
   save_txt   : false # save label file

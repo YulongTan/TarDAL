@@ -11,14 +11,26 @@ from config import from_dict
 if __name__ == '__main__':
     # args parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('--cfg', default='./config/official/infer/tardal-tt.yaml', help='config file path')
-    parser.add_argument('--save_dir', default='./runs/tardal-tt', help='fusion result save folder')
+    parser.add_argument('--cfg', default='./config/official/infer/tardal-dt.yaml', help='config file path')
+    parser.add_argument('--save_dir', default='./runs/tardal-dt', help='fusion result save folder')
     args = parser.parse_args()
 
     # init config
-    config = yaml.safe_load(Path(args.cfg).open('r'))
+    config = yaml.safe_load(Path(args.cfg).open('r', encoding='utf-8'))
     config = from_dict(config)  # convert dict to object
     config = config
+
+    # ✅ 检查CUDA可用性
+    import torch
+
+    if torch.cuda.is_available():
+        config.device = 'cuda'
+        device = torch.device('cuda')
+        logging.info(f'Using GPU: {torch.cuda.get_device_name(0)}')
+    else:
+        config.device = 'cpu'
+        device = torch.device('cpu')
+        logging.warning('CUDA not available, falling back to CPU.')
 
     # init logger
     log_f = '%(asctime)s | %(filename)s[line:%(lineno)d] | %(levelname)s | %(message)s'

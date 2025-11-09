@@ -51,10 +51,31 @@ class InferF:
         fuse = Fuse(config, mode='inference')
         self.fuse = fuse
 
+    # @torch.inference_mode()
+    # def run(self):
+    #     p_l = tqdm(self.p_loader, total=len(self.p_loader), ncols=120)
+    #     for sample in p_l:
+    #         sample = dict_to_device(sample, self.fuse.device)
+    #         # f_net forward
+    #         fus = self.fuse.inference(ir=sample['ir'], vi=sample['vi'])
+    #         # recolor
+    #         if self.data_t.color and self.config.inference.grayscale is False:
+    #             fus = torch.cat([fus, sample['cbcr']], dim=1)
+    #             fus = ycbcr_to_rgb(fus)
+    #         # save images
+    #         self.data_t.pred_save(
+    #             fus, [self.save_dir / name for name in sample['name']],
+    #             shape=sample['shape']
+    #         )
+    # 修改为只推理10张
     @torch.inference_mode()
     def run(self):
         p_l = tqdm(self.p_loader, total=len(self.p_loader), ncols=120)
-        for sample in p_l:
+        for i, sample in enumerate(p_l):         # ✅ enumerate 用于计数
+            if i >= 10:                          # ✅ 限制最多 10 张
+                logging.info("✅ 已完成前 10 张推理，提前结束。")
+                break
+
             sample = dict_to_device(sample, self.fuse.device)
             # f_net forward
             fus = self.fuse.inference(ir=sample['ir'], vi=sample['vi'])
@@ -67,3 +88,4 @@ class InferF:
                 fus, [self.save_dir / name for name in sample['name']],
                 shape=sample['shape']
             )
+
